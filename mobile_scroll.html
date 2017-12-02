@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.js"></script>
+</head>
+
+<body>
+	<canvas id="c" width="600" height="2000" style="border:2px solid #000"></canvas>
+	<div id="res"></div>
+	<script>
+		(function () {
+
+			var canvas = new fabric.Canvas('c');
+			console.log(canvas);
+			canvas.setBackgroundColor('green', canvas.renderAll.bind(canvas));
+
+			var group = [];
+
+			fabric.loadSVGFromURL("http://fabricjs.com/assets/1.svg", function (objects, options) {
+
+				var loadedObjects = new fabric.Group(group);
+
+				loadedObjects.set({
+					left: 100,
+					top: 650,
+					width: 175,
+					height: 175,
+					borderColor: 'black',
+					cornerColor: 'black',
+					cornerSize: 30
+				});
+
+
+				canvas.add(loadedObjects);
+				canvas.renderAll();
+
+			}, function (item, object) {
+				object.set('id', item.getAttribute('id'));
+				group.push(object);
+			});
+
+			canvas.on({
+				'touch:gesture': function () {
+					document.getElementById('res').innerText = 1
+				},
+				'touch:drag': function () {
+					document.getElementById('res').innerText = 2
+				},
+				'touch:orientation': function () {
+					document.getElementById('res').innerText = 3
+				},
+				'touch:shake': function () {
+					document.getElementById('res').innerText = 4
+				},
+				'touch:longpress': function () {
+					document.getElementById('res').innerText = 5
+				}
+			});
+
+	
+
+			var text = new fabric.Text('Honey,\nI\'m subtle', {
+				fontSize: 250,
+				left: 0,
+				top: 0,
+				lineHeight: 1,
+				ill: 'black',
+				originX: 'left',
+				fontFamily: 'Helvetica',
+				fontWeight: 'bold',
+				statefullCache: true,
+				scaleX: 0.4,
+				scaleY: 0.4,
+				transparentCorners: false,
+				borderColor: 'black',
+				cornerColor: 'black',
+				cornerSize: 30
+			});
+
+			var rect = new fabric.Rect({
+				left: 150,
+				top: 400,
+				originX: 'left',
+				originY: 'top',
+				width: 250,
+				height: 220,
+				fill: 'red',
+				transparentCorners: false,
+				borderColor: 'black',
+				cornerColor: 'black',
+				cornerSize: 30
+			});
+
+			canvas.add(text, rect);
+
+		})();
+	</script>
+
+	<style>
+		#res{
+			position: absolute;
+			right: 0;
+			top: 0;
+			background: red;
+			width: 50px;
+			height: 50px;
+			z-index: 9;
+		}
+	</style>
+</body>
+
+</html>
