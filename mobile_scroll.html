@@ -40,10 +40,10 @@
 					down = null
 				}
 			});
-			
+
 			canvas.on('mouse:up', function (e) {
 				let pointer = canvas.getPointer(e.e);
-				if (!e.target && down && Math.abs(pointer.y - down) > 50) {
+				if (!e.target && down && Math.abs(pointer.y - down) > 25) {
 					let y = 0
 					if (down < pointer.y)
 						y = pointer.y
