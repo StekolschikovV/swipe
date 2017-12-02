@@ -35,6 +35,7 @@
 			// let down = 0
 			let isMouseDown = false
 			let startYposition = 0 
+			let lastMove = 0
 			canvas.on('mouse:down', function (e) {
 				// if (!e.target) {
 				// 	
@@ -48,7 +49,8 @@
 
 			canvas.on('mouse:move', function (e) {
 			
-				if(isMouseDown){
+				if(isMouseDown && Date.now() - lastMove > 10){
+					lastMove = Date.now();
 					let pointer = canvas.getPointer(e.e)
 					console.log(pointer.y)
 					window.scrollTo(0, startYposition - parseInt(pointer.y));
