@@ -62,16 +62,27 @@
 			let down = 0
 			let up = 0
 			canvas.on('mouse:down', function (e) {
-				var pointer = canvas.getPointer(event.e);
-				down = pointer.y
-				console.log(pointer.y);  
+				if (e.target) {
+					var pointer = canvas.getPointer(event.e);
+					down = pointer.y
+				} else {
+					down = null
+				}
+
+				// console.log(pointer.y);  
+				console.log(e.target)
 			});
 
 			canvas.on('mouse:up', function (e) {
-				var pointer = canvas.getPointer(event.e);
-				up = pointer.y
-				console.log(pointer.y);    
-				alert(`${down} x ${up}`)
+y
+				// console.log(pointer.y);    
+				// alert(`${down} x ${up}`)
+
+				if (e.target && down) {
+					var pointer = canvas.getPointer(event.e);
+					up = pointer.y
+					alert(`${down} x ${up}`)
+				}
 			});
 
 
