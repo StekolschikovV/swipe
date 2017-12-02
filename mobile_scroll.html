@@ -8,20 +8,13 @@
 
 <body>
 	<canvas id="c" width="600" height="2000" style="border:2px solid #000"></canvas>
-	<div id="res"></div>
 	<script>
 		(function () {
-
 			var canvas = new fabric.Canvas('c');
-			console.log(canvas);
 			canvas.setBackgroundColor('green', canvas.renderAll.bind(canvas));
-
 			var group = [];
-
 			fabric.loadSVGFromURL("http://fabricjs.com/assets/1.svg", function (objects, options) {
-
 				var loadedObjects = new fabric.Group(group);
-
 				loadedObjects.set({
 					left: 100,
 					top: 650,
@@ -31,36 +24,14 @@
 					cornerColor: 'black',
 					cornerSize: 30
 				});
-
-
 				canvas.add(loadedObjects);
 				canvas.renderAll();
-
 			}, function (item, object) {
 				object.set('id', item.getAttribute('id'));
 				group.push(object);
 			});
 
-			canvas.on({
-				'touch:gesture': function () {
-					document.getElementById('res').innerText = 1
-				},
-				'touch:drag': function () {
-					document.getElementById('res').innerText = 2
-				},
-				'touch:orientation': function () {
-					document.getElementById('res').innerText = 3
-				},
-				'touch:shake': function () {
-					document.getElementById('res').innerText = 4
-				},
-				'touch:longpress': function () {
-					document.getElementById('res').innerText = 5
-				}
-			});
-
 			let down = 0
-			let up = 0
 			canvas.on('mouse:down', function (e) {
 				if (!e.target) {
 					var pointer = canvas.getPointer(event.e);
@@ -69,29 +40,21 @@
 					down = null
 				}
 			});
-
+			
 			canvas.on('mouse:up', function (e) {
-				if (!e.target && down) {
-					var pointer = canvas.getPointer(e.e);
-					up = pointer.y
-					
-				
-					if(down < up){
-						console.log('---------- down < up', down, up)
-						document.body.scrollIntoView(100) 
-					}
-				
-					else{
-						console.log('---------- down > up', down, up)
-						document.body.scrollIntoView(0) 
-					}
-					
-
-					// alert(`${down} x ${up}`)
+				let pointer = canvas.getPointer(e.e);
+				if (!e.target && down && Math.abs(pointer.y - down) > 50) {
+					let y = 0
+					if (down < pointer.y)
+						y = pointer.y
+					else
+						y = pointer.y + ((pointer.y - down) * 5)
+					window.scrollTo({
+						'behavior': 'smooth',
+						'top': y
+					});
 				}
 			});
-
-
 
 			var text = new fabric.Text('Honey,\nI\'m subtle', {
 				fontSize: 250,
@@ -129,18 +92,6 @@
 
 		})();
 	</script>
-
-	<style>
-		#res {
-			position: absolute;
-			right: 0;
-			top: 0;
-			background: red;
-			width: 50px;
-			height: 50px;
-			z-index: 9;
-		}
-	</style>
 </body>
 
 </html>
