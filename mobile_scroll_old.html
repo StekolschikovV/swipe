@@ -32,44 +32,29 @@
 			// 	group.push(object);
 			// });
 
-			// let down = 0
-			let isMouseDown = false
-			let startYposition = 0 
+			let down = 0
 			canvas.on('mouse:down', function (e) {
-				// if (!e.target) {
-				// 	
-				// 	down = pointer.y
-				// } else 
-				// 	down = null
-				let pointer = canvas.getPointer(event.e)
-				startYposition = pointer.y
-				isMouseDown = true
+				if (!e.target) {
+					var pointer = canvas.getPointer(event.e);
+					down = pointer.y
+				} else 
+					down = null
+				
 			});
 
-			canvas.on('mouse:move', function (e) {
-			
-				if(isMouseDown){
-					let pointer = canvas.getPointer(e.e)
-					console.log(pointer.y)
-					window.scrollTo(0, startYposition - parseInt(pointer.y));
-				}
-		
-			})
-
 			canvas.on('mouse:up', function (e) {
-				// let pointer = canvas.getPointer(e.e);
-				// if (!e.target && down && Math.abs(pointer.y - down) > 25) {
-				// 	let y = 0
-				// 	if (down < pointer.y)
-				// 		y = pointer.y
-				// 	else
-				// 		y = pointer.y + ((pointer.y - down) * 5)
-				// 	window.scrollTo({
-				// 		'behavior': 'smooth',
-				// 		'top': y
-				// 	});
-				// }
-				isMouseDown = false
+				let pointer = canvas.getPointer(e.e);
+				if (!e.target && down && Math.abs(pointer.y - down) > 25) {
+					let y = 0
+					if (down < pointer.y)
+						y = pointer.y
+					else
+						y = pointer.y + ((pointer.y - down) * 5)
+					window.scrollTo({
+						'behavior': 'smooth',
+						'top': y
+					});
+				}
 			});
 
 			var text = new fabric.Text('Honey,\nI\'m subtle', {
