@@ -52,7 +52,7 @@
 				if(isMouseDown && Date.now() - lastMove > 10){
 					lastMove = Date.now();
 					let pointer = canvas.getPointer(e.e)
-					console.log(pointer.y)
+					// console.log(pointer.y)
 					window.scrollTo(0, startYposition - parseInt(pointer.y));
 				}
 		
