@@ -59,7 +59,22 @@
 				}
 			});
 
-	
+			let down = 0
+			let up = 0
+			canvas.on('mouse:down', function (e) {
+				var pointer = canvas.getPointer(event.e);
+				down = pointer.y
+				console.log(pointer.y);  
+			});
+
+			canvas.on('mouse:up', function (e) {
+				var pointer = canvas.getPointer(event.e);
+				up = pointer.y
+				console.log(pointer.y);    
+				alert(`${down} x ${up}`)
+			});
+
+
 
 			var text = new fabric.Text('Honey,\nI\'m subtle', {
 				fontSize: 250,
@@ -99,7 +114,7 @@
 	</script>
 
 	<style>
-		#res{
+		#res {
 			position: absolute;
 			right: 0;
 			top: 0;
